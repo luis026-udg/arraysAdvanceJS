@@ -1,59 +1,45 @@
-function createStartArray()
+function createStartArray() {
+  startArray = ["leche", "huevos", "pan", "yogurt", "frijoles", "pollo", "café"];
+  startArray.push("arroz");
+}
+function createArrayInvert() {
+  arrayInvert = startArray.slice();//Esta linea utiliza el metodo slice para crear una copia independiente de un array en JS
+  arrayInvert.reverse();
+}
+function createFinalArray() {
+  finalArray = arrayInvert.slice();//Esta linea utiliza el metodo slice para crear una copia independiente de un array en JS
+  let posicionLeche = finalArray.indexOf("leche");
+  let posicionCafe = finalArray.indexOf("café");
+  finalArray.splice(posicionLeche, 1, "leche descremada")
+  finalArray.splice(posicionCafe, 1, "café descafeinado")
+}
+function displayArrays(showArray) 
 {
-  var t = document.getElementById("usuario_number_start");
-  number_start = parseInt(t.value);
-  var e = document.getElementById("usuario_number_elements");
-  number_elements = parseInt(e.value);
-
-  var element_array = number_start;
-  for (var i = 0; i < number_elements; i++)
-  {
-    startArray.push(element_array);
-    element_array++;
+  for (var i = 0; i < showArray.length; i++) {
+    let posicion = 0;
+    let valor = 0;
+    posicion = i;
+    valor = showArray[i];
+    resultado.insertAdjacentHTML("beforeend", `<br>El elemento en la posición ${posicion} es ${valor} `);
   }
 }
-function createFinalArray()
-{
-  var p = document.getElementById("usuario_number_plus");
-  number_plus = parseInt(p.value);
-  var newValue = 0;
-  finalArray = startArray.slice();//Esta linea utiliza el metodo slice para crear una copia independiente de un array en JS
-  for(var i = 0; i < finalArray.length; i++)
-  {
-    console.log(startArray);
-    newValue = finalArray[i] + number_plus;
-    finalArray[i] = newValue;
-    // console.log(finalArray[i])
-  }
-}
-
-function displayArrays()
-{
+function playGame() {
   startArray = [];
+  arrayInvert = [];
   finalArray = [];
   createStartArray();
+  createArrayInvert();
   createFinalArray();
+  console.log(finalArray);
   document.getElementById("resultado").innerHTML = "<br>";
-  for (var i = 0; i < finalArray.length; i++)
-  {
-    var posicion = 0;
-    var valorInicial = 0;
-    var valorFinal = 0;
-    posicion = i;
-    valorInicial = startArray[i];
-    valorFinal = finalArray[i];
-    console.log(i);
-    console.log(startArray[i]);
-    console.log(finalArray[i]);
-
-    resultado.insertAdjacentHTML("beforeend","<br>El elemento " +posicion +" del arreglo es " +valorInicial+" y su valor final es "+valorFinal+"." );
-  }
+  resultado.insertAdjacentHTML("beforeend", `<h2>Arreglo 1</h2>`);
+  displayArrays(arrayInvert);
+  resultado.insertAdjacentHTML("beforeend", `<h2>Arreglo 2</h2>`);
+  displayArrays(finalArray);
 }
-var number_start = 0;
-var number_elements = 0;
-var number_plus = 0;
 var startArray = [];
+var arrayInvert = [];
 var finalArray = [];
 var resultado = document.getElementById("resultado");
 var b = document.getElementById("play");
-b.addEventListener("click", displayArrays);
+b.addEventListener("click", playGame);
